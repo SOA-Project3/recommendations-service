@@ -11,7 +11,9 @@ const recieveHelper = require("../helpers/RecievePubSubConfig")
  * @returns
  */
 const getRecommendation = (req, res, next) => {
-  recieveHelper.listenForMessages('recommendation-backend-sub', handleMessage);
+  recieveHelper.listenForMessages('recommendation-backend-sub');
+ /*
+
 
   // Define a function to handle the received message
   function handleMessage(message) {
@@ -78,7 +80,7 @@ const getRecommendation = (req, res, next) => {
             console.error('Error publishing message to Pub/Sub:', error);
             res.status(statusCodes.INTERNAL_SERVER_ERROR).send("Error publishing message to Pub/Sub");
         });
-  }
+  }*/
 };
 
 function notFoundError(next) {
