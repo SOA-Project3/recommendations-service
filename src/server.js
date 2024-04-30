@@ -11,8 +11,8 @@ app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 app.use(morgan("tiny")); //Log request
 
-const errorHandler = require("./errors/RecommendationError");
-router.use(errorHandler.queryValidatorMiddleware);
+//const errorHandler = require("./errors/RecommendationError");
+//outer.use(errorHandler.queryValidatorMiddleware);
 
 const recommendationRoutes = require("./controllers/CustomRecommendation");
 router.get("/custom", recommendationRoutes.getRecommendation); //Define path for recommendation requests

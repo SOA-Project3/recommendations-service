@@ -14,6 +14,7 @@
     "express"
   ],
   "dependencies": {
+    "@google-cloud/pubsub": "^4.3.3",
     "express": "^4.18.2",
     "morgan": "^1.10.0",
     "node-fetch": "^3.3.2",
