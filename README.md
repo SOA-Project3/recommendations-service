@@ -1,1 +1,1 @@
-# recommendations-service
+# RESTaurant-recommendations

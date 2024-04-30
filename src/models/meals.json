@@ -1,0 +1,62 @@
+{
+  "meal": [
+    {
+      "name": "Pizza"
+    },
+    {
+      "name": "Rice and beans"
+    },
+    {
+      "name": "Chifrijo"
+    },
+    {
+      "name": "Patacones"
+    },
+    {
+      "name": "Gallo pinto"
+    },
+    {
+      "name": "Casado"
+    }
+  ],
+  "dessert": [
+    {
+      "name": "Helado de cajeta"
+    },
+    {
+      "name": "Tiramisú"
+    },
+    {
+      "name": "Cajeta"
+    },
+    {
+      "name": "Flan"
+    },
+    {
+      "name": "Pastel de tres leches"
+    },
+    {
+      "name": "Mousse de chocolate"
+    }
+  ],
+  "drink": [
+    {
+      "name": "Jugo de mango"
+    },
+    {
+      "name": "Hiel"
+    },
+    {
+      "name": "Cerveza"
+    },
+    {
+      "name": "Jugos naturales"
+    },
+    {
+      "name": "Jugo de Naranja"
+    },
+    {
+      "name": "Café"
+    }
+  ]
+}
