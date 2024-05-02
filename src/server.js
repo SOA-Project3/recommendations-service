@@ -1,27 +1,54 @@
-const express = require("express"); //Import express framework module
-const morgan = require("morgan"); //Import morgan for middleware to log HTTP requests and errors
-const port = 5555; //Define port: first checks if available in environment variables
-const swaggerUi = require('swagger-ui-express');
-const swaggerDocument = require('./swagger.json');
+const express = require("express");
+const { PubSub } = require('@google-cloud/pubsub');
+const pubsub = new PubSub();
+const port = 5555; // Define port
+const recommendationService = require("./controllers/CustomRecommendation");
 
-const app = express(); //Main express app
-const router = express.Router(); 
+const app = express();
 
-app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+// Define a function to handle received Pub/Sub messages
+const handleMessage = async (message) => {
+  try {
+    // Process the received message
+    const data = JSON.parse(message.data.toString());
+    console.log('Received message:', data);
 
-app.use(morgan("tiny")); //Log request
+    // Get recommendation response from recommendation service
+    const recommendationResponse = await recommendationService.getRecommendation(data);
 
-//const errorHandler = require("./errors/RecommendationError");
-//outer.use(errorHandler.queryValidatorMiddleware);
+    // Publish the recommendation response
+    await publishMessage("recommendation-service", recommendationResponse);
 
-const recommendationRoutes = require("./controllers/CustomRecommendation");
-router.get("/custom", recommendationRoutes.getRecommendation); //Define path for recommendation requests
+    // Acknowledge the message to remove it from the subscription
+    message.ack();
+  } catch (error) {
+    console.error('Error processing message:', error);
+  }
+};
 
-app.use(router); // Applying the router middleware to the app
+async function publishMessage(topicName, data) {
+    // Publishes the message as a string, e.g. "Hello, world!" or JSON.stringify(someObject)
+    const dataBuffer = Buffer.from(data);
+  
+    try {
+      const messageId = await pubSubClient
+        .topic(topicName)
+        .publishMessage({data: dataBuffer});
+      console.log(`Message ${messageId} published.`);
+    } catch (error) {
+      console.error(`Received error while publishing: ${error.message}`);
+      process.exitCode = 1;
+    }
+}
 
-app.listen(port, () => {
-    console.log(`Server running on port ${port}`);
-});
+
+// Set up a subscription to listen for messages
+const subscriptionName = 'recommendation-backend-sub';
+const subscription = pubsub.subscription(subscriptionName);
+
+// Start listening for messages
+subscription.on('message', handleMessage);
+
 
 module.exports = {
     app
