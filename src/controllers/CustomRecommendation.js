@@ -2,14 +2,16 @@ const data = require("../models/meals.json");
 const statusCodes = require("../constants/statusCodes");
 const helpers = require("../helpers/RecommendationHelpers");
 
-const getRecommendation = async (query) => {
+const getRecommendation = async (jsonString) => {
   try {
+    const query = JSON.parse(jsonString);
+      console.log(query);
       const queryLength = Object.keys(query).length;
       const firstParameter = Object.keys(query)[0];
       const secondParameter = Object.keys(query)[1];
       const firstParameterValue = Object.values(query)[0];
       const secondParameterValue = Object.values(query)[1];
-
+      
       let response = {};
 
       if (queryLength === 2) {

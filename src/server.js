@@ -1,6 +1,7 @@
 const express = require("express");
 const { PubSub } = require('@google-cloud/pubsub');
 const pubsub = new PubSub();
+const pubSubClient = new PubSub();
 const port = 5555; // Define port
 const recommendationService = require("./controllers/CustomRecommendation");
 
@@ -10,7 +11,7 @@ const app = express();
 const handleMessage = async (message) => {
   try {
     // Process the received message
-    const data = JSON.parse(message.data.toString());
+    const data = message.data.toString();
     console.log('Received message:', data);
 
     // Get recommendation response from recommendation service
@@ -27,8 +28,8 @@ const handleMessage = async (message) => {
 };
 
 async function publishMessage(topicName, data) {
-    // Publishes the message as a string, e.g. "Hello, world!" or JSON.stringify(someObject)
-    const dataBuffer = Buffer.from(data);
+    const jsonString = JSON.stringify(data);
+    const dataBuffer = Buffer.from(jsonString);
   
     try {
       const messageId = await pubSubClient
