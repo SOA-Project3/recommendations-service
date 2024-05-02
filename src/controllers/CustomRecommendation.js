@@ -2,8 +2,6 @@ const data = require("../models/meals.json");
 const statusCodes = require("../constants/statusCodes");
 const helpers = require("../helpers/RecommendationHelpers");
 
-
-
 const getRecommendation = async (query) => {
   try {
       const queryLength = Object.keys(query).length;
