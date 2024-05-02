@@ -1,7 +1,7 @@
 const express = require("express");
 const { PubSub } = require('@google-cloud/pubsub');
 const pubsub = new PubSub();
-const pubSubClient = new PubSub();
+const pubSubClient = new PubSub();  
 const port = 5555; // Define port
 const recommendationService = require("./controllers/CustomRecommendation");
 
