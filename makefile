@@ -1,5 +1,5 @@
 run:
-	gcloud functions deploy recommendation --runtime nodejs18 --trigger-http --entry-point app
+	gcloud functions deploy recommendation --runtime nodejs18 --trigger-topic recommendation-service --entry-point app --allow-unauthenticated
 
 
 set: 
