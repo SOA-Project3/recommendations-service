@@ -1,6 +1,6 @@
 const express = require("express"); //Import express framework module
 const morgan = require("morgan"); //Import morgan for middleware to log HTTP requests and errors
-const port = 5555; //Define port: first checks if available in environment variables
+const port = 8000; //Define port: first checks if available in environment variables
 const swaggerUi = require('swagger-ui-express');
 const swaggerDocument = require('./swagger.json');
 
