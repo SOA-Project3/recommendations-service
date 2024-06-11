@@ -3,6 +3,7 @@ const morgan = require("morgan"); //Import morgan for middleware to log HTTP req
 const port = 8000; //Define port: first checks if available in environment variables
 const swaggerUi = require('swagger-ui-express');
 const swaggerDocument = require('./swagger.json');
+const verifyToken = require("./helpers/verifyToken");
 
 const app = express(); //Main express app
 const router = express.Router(); 
@@ -15,7 +16,7 @@ const errorHandler = require("./errors/RecommendationError");
 router.use(errorHandler.queryValidatorMiddleware);
 
 const recommendationRoutes = require("./controllers/CustomRecommendation");
-router.get("/custom", recommendationRoutes.getRecommendation); //Define path for recommendation requests
+router.get("/custom", verifyToken,recommendationRoutes.getRecommendation); //Define path for recommendation requests
 
 app.use(router); // Applying the router middleware to the app
 
