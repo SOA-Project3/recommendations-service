@@ -4,6 +4,7 @@ const cors = require("cors");
 const port = 3003; //Define port: first checks if available in environment variables
 const swaggerUi = require("swagger-ui-express");
 const swaggerDocument = require("./swagger.json");
+const verifyToken = require("./helpers/verifyToken");
 
 const app = express(); //Main express app
 const router = express.Router();
@@ -20,7 +21,7 @@ const recommendationRoutes = require("./controllers/CustomRecommendation");
 // Use the cors middleware
 app.use(cors());
 
-router.get("/recommendations", recommendationRoutes.getRecommendation); //Define path for recommendation requests
+router.get("/recommendations", verifyToken, recommendationRoutes.getRecommendation); //Define path for recommendation requests
 
 app.use(router); // Applying the router middleware to the app
 
