@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: recom-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: recom
+  template:
+    metadata:
+      labels:
+        app: recom
+    spec:
+      containers:
+        - name: recom
+          image: recommendations:v0.2
+          ports:
+            - containerPort: 3003
